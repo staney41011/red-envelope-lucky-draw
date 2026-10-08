@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/state.json
+*.backup.json
+red-envelope-backup.json
+*.log
+.DS_Store

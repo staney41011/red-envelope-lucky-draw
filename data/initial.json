@@ -1,0 +1,89 @@
+{
+  "names": [
+    "陳佳筠",
+    "廖珮榕",
+    "邱愛慈",
+    "何雅嵐",
+    "李蓁怡",
+    "林秀如",
+    "張宸菲",
+    "鄒明珊",
+    "王宜蓁",
+    "曾弘瑋",
+    "許文興",
+    "何建宗",
+    "詹紫韻",
+    "張郁娟",
+    "蔡孟儒"
+  ],
+  "prizeZones": {
+    "ruby": {
+      "label": "第一區",
+      "prizes": [
+        {
+          "amount": 1000,
+          "count": 10
+        },
+        {
+          "amount": 800,
+          "count": 20
+        },
+        {
+          "amount": 500,
+          "count": 50
+        }
+      ]
+    },
+    "gold": {
+      "label": "第二區",
+      "prizes": [
+        {
+          "amount": 500,
+          "count": 10
+        },
+        {
+          "amount": 400,
+          "count": 20
+        },
+        {
+          "amount": 300,
+          "count": 50
+        }
+      ]
+    },
+    "jade": {
+      "label": "第三區",
+      "prizes": [
+        {
+          "amount": 200,
+          "count": 30
+        },
+        {
+          "amount": 100,
+          "count": 50
+        }
+      ]
+    },
+    "bonus": {
+      "label": "加碼獎",
+      "prizes": [
+        {
+          "amount": 1000,
+          "count": 2
+        },
+        {
+          "amount": 800,
+          "count": 5
+        },
+        {
+          "amount": 500,
+          "count": 10
+        },
+        {
+          "amount": 300,
+          "count": 23
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+/* Portability layer over the original ChatGPT Sites visual styles */
+button,a,input { font:inherit }
+button { cursor:pointer }
+button:disabled { cursor:not-allowed; opacity:.55 }
+.compatPeople .selected,.compatZones .selected {
+  border-color:#7d211f !important;
+  outline:3px solid #ffc654;
+  box-shadow:0 0 0 3px #fff4a9aa,0 8px 24px #e69b3980 !important
+}
+.compatZones button { width:100%; height:100%; }
+.compatZones button em { font-style:normal;display:block;margin-top:3px;font-size:12px }
+.compatReady button:disabled { opacity:.45 }
+.compatQueue .queueEntry {
+ display:flex;justify-content:space-between;align-items:center;gap:10px;
+ border-radius:8px;border:1px solid #ebcc9b;margin:9px 0;padding:10px 12px;
+ background:#fff5df;color:#442018
+}
+.queueEntry span {display:grid;gap:4px}
+.queueEntry small {font-size:12px;opacity:.8}
+.queueEntry button {border:1px solid #a54232;background:#fff3e9;color:#772b23;
+ border-radius:8px;padding:5px 10px;white-space:nowrap}
+.empty {font-size:14px;color:#a98072;line-height:1.6}
+#notice {position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:50;
+ max-width:min(650px,90vw);padding:0;border-radius:12px;text-align:center;font-weight:800}
+#notice:not(:empty) {padding:12px 20px;box-shadow:0 6px 20px #0004}
+#notice.success {background:#e9ffe6;color:#244a24}
+#notice.error {background:#ffddd8;color:#7f130f}
+.projectionList #queue article {padding:10px 8px;border-bottom:1px solid #ffffff28;display:grid;gap:4px}
+.projectionList #queue article b {font-size:20px}
+.projectionList #queue article small {color:#ffcc8c;font-size:13px}
+.projectionStage .projectionResult {width:min(96%,900px);z-index:3}
+.projectionStage .projectionResult>strong {text-shadow:0 8px 35px #0009}
+.projectionNotes {display:flex;flex-wrap:wrap;justify-content:center;gap:14px}
+.projectionNotes span {border:1px solid #fff5;background:#7b232a99;border-radius:12px;
+ padding:10px 16px;display:grid;font-size:13px;min-width:155px}
+.projectionNotes strong {font-size:22px}
+.projectionPage .projectionStage:has(.projectionResult) .projectionBurst {opacity:.45}
+.projectionPage.isDrawing .projectionResult>strong {animation:balloonBeat .6s ease-in-out infinite alternate}
+@keyframes balloonBeat {from {transform:scale(.85) rotate(-8deg)}to{transform:scale(1.13) rotate(8deg)}}
+@media (max-width:750px) {
+ .projectionPage {height:auto;min-height:100vh;overflow:auto}
+ .projectionBody {grid-template-columns:1fr!important}
+ .projectionStage {min-height:55vh}
+ .projectionList,.projectionInfo {max-height:none!important}
+}
