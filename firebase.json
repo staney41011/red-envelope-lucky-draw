@@ -1,0 +1,14 @@
+{
+  "database": {
+    "rules": "database.rules.json"
+  },
+  "auth": {
+    "providers": {
+      "emailPassword": false,
+      "googleSignIn": {
+        "oAuthBrandDisplayName": "Red Envelope Lucky Draw",
+        "supportEmail": "a10014521@gmail.com"
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
-import {boot,snapshot,subscribe,safe,money,formatted,shortTime} from './storage.js';
+import {boot,snapshot,subscribe,safe,money,formatted,shortTime,subscribeAuth,firebaseSignIn,firebaseSignInRedirect,firebaseSignOut,isCloudReady} from './firebase-storage.js';
+import {installFirebaseGate} from './auth-ui.js';
 const el=id=>document.getElementById(id);
 const zones=['ruby','gold','jade','bonus'];
 let lastRevision='',lastPhase='';
@@ -11,7 +12,7 @@ function update(){
   render(d,phase);
 }
 function render(d,phase){
-  el('connection').textContent='● 同一瀏覽器分頁同步中';
+  el('connection').textContent='● Firebase 跨裝置即時同步中';
   el('updated').textContent=formatted(d.updatedAt);
   el('queueCount').textContent=d.queue.length;
   el('queue').innerHTML=d.queue.map((q,i)=>
@@ -39,6 +40,7 @@ function render(d,phase){
       '<h2>'+(d.queue.length?'下一份紅包即將開出':'抽獎佇列準備中')+'</h2>';
   }
 }
+installFirebaseGate({subscribeAuth,firebaseSignIn,firebaseSignInRedirect,firebaseSignOut,isCloudReady,role:'projection'});
 try{
   await boot();
   subscribe(update);

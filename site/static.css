@@ -39,3 +39,17 @@ button.warningButton {padding:9px 13px;background:#591b20;color:#fff7f0;border:1
   .projectionBody {grid-template-columns:1fr!important}
   .projectionStage {min-height:50vh}
 }
+
+/* Firebase account permission gate */
+.firebaseGate[hidden] {display:none!important}
+.firebaseGate {position:fixed;inset:0;z-index:9999;background:rgba(22,6,7,.95);display:grid;place-items:center;padding:22px;color:#fff;overflow:auto}
+.firebaseGateCard{background:linear-gradient(145deg,#702129,#3c1118);border:2px solid #e5b465;border-radius:22px;max-width:500px;width:100%;box-shadow:0 25px 80px #000b;padding:36px;text-align:center}
+.firebaseGateCard>span{color:#ffd27a;letter-spacing:3px;font-weight:800;font-size:15px}
+.firebaseGateCard h2{font-size:clamp(27px,4vw,38px);margin:24px 0 12px}
+.firebaseGateCard p{color:#f7dcd4;line-height:1.8}
+.firebaseGateEmail{background:#391117;border:1px solid #a65a45;padding:12px;border-radius:8px;font-weight:800}
+.firebaseGoogleButton,.firebaseRedirectButton,.firebaseLogoutButton{display:block;width:100%;border-radius:12px;padding:14px;margin:10px auto;border:1px solid #ffc97b;cursor:pointer;font-weight:800}
+.firebaseGoogleButton{background:#ffe9ad;color:#46151a;font-size:18px}
+.firebaseRedirectButton,.firebaseLogoutButton{background:#502126;color:#ffe6af}
+.firebaseRedirectButton[hidden],.firebaseLogoutButton[hidden],.firebaseGoogleButton[hidden]{display:none}
+.firebaseGateMessage{color:#fdd799;font-size:13px;line-height:1.5;display:block;margin-top:16px}
