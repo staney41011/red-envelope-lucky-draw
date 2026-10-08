@@ -6,6 +6,21 @@
       ".read": "auth != null && auth.token.email === 'a10014521@gmail.com' && auth.token.email_verified === true",
       ".write": "auth != null && auth.token.email === 'a10014521@gmail.com' && auth.token.email_verified === true",
       ".validate": "newData.hasChildren(['names','activity'])"
+    },
+    "projectionView": {
+      ".read": "auth != null",
+      ".write": "auth != null && auth.token.email === 'a10014521@gmail.com' && auth.token.email_verified === true",
+      ".validate": "newData.hasChildren(['activity','prizeZones','remaining','revision']) && !newData.hasChild('names')",
+      "records": {
+        "$index": {
+          ".validate": "newData.hasChildren(['name','zoneLabel','prize','createdAt']) && !newData.hasChild('product') && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount')"
+        }
+      },
+      "queue": {
+        "$index": {
+          ".validate": "newData.hasChildren(['name','zoneLabel']) && !newData.hasChild('product') && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount')"
+        }
+      }
     }
   }
 }

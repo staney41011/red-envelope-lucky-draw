@@ -1,23 +1,20 @@
 // Firebase Realtime Database live synchronization for mobile host and desktop projector.
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js';
 import {getAuth,GoogleAuthProvider,onAuthStateChanged,signInWithPopup,signInWithRedirect,signOut} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js';
-import {getDatabase,ref,onValue,runTransaction} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js';
+import {getDatabase,ref,onValue,runTransaction,set} from 'https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js';
 import {createEngine,AUTH_EMAIL} from './draw-core.js';
+import {firebaseConfig} from './firebase-config.js';
+import {toPublicProjection} from './projection-data.js';
 
-const firebaseConfig={
-  apiKey:'AIzaSyAvmNObjviKFps_4meD5SLYrm6DzBP5_xg',
-  authDomain:'red-envelope-lucky-draw-2026.firebaseapp.com',
-  databaseURL:'https://red-envelope-lucky-draw-2026-default-rtdb.asia-southeast1.firebasedatabase.app',
-  projectId:'red-envelope-lucky-draw-2026',
-  appId:'1:827288505688:web:61269f1c805a9a4fa1692d',
-  messagingSenderId:'827288505688'
-};
+
 const app=initializeApp(firebaseConfig);
 const auth=getAuth(app);
 const database=getDatabase(app);
 const stateRef=ref(database,'drawState');
+const projectionRef=ref(database,'projectionView');
 const observers=new Set(),authObservers=new Set();
 let engine=null,live=null,authorized=false,signedUser=null,unsubscribeDb=null,initPromise=null,lastError='';
+let lastPublishedRevision='';
 export function subscribe(fn){observers.add(fn);return()=>observers.delete(fn);}
 export function subscribeAuth(fn){authObservers.add(fn);fn(authStatus());return()=>authObservers.delete(fn);}
 function publish(){observers.forEach(fn=>{try{fn();}catch(e){console.error(e);}});}
@@ -33,6 +30,14 @@ export function firebaseSignIn(){
 }
 export function firebaseSignInRedirect(){return signInWithRedirect(auth,new GoogleAuthProvider());}
 export function firebaseSignOut(){return signOut(auth);}
+async function publishProjection(){
+  if(!isCloudReady())return;
+  const publicState=toPublicProjection(engine.view(live));
+  if(publicState.revision===lastPublishedRevision)return;
+  lastPublishedRevision=publicState.revision;
+  try{await set(projectionRef,publicState);}
+  catch(err){lastPublishedRevision='';console.error('投影資料同步失敗',err);}
+}
 function handleAuth(user){
   if(unsubscribeDb){unsubscribeDb();unsubscribeDb=null;}
   signedUser=user;
@@ -47,6 +52,7 @@ function handleAuth(user){
       if(!live)lastError='雲端資料尚未初始化';
       else lastError='';
       authNotify();publish();
+      void publishProjection();
     },err=>{
       lastError='Firebase 讀取失敗：'+err.message;
       live=null;authNotify();publish();

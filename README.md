@@ -4,7 +4,7 @@
 
 **控制台：** https://staney41011.github.io/red-envelope-lucky-draw/control/　｜　**投影頁：** https://staney41011.github.io/red-envelope-lucky-draw/projection/
 
-**GitHub Pages 已接上 Firebase Realtime Database**。手機控制台與電腦投影頁使用授權 Google 帳號登入後，可跨裝置即時同步。Firebase 專案：`red-envelope-lucky-draw-2026`。詳細說明：[GITHUB_PAGES.md](GITHUB_PAGES.md)。以下 Node.js 文件僅是保留的備援版本。
+**GitHub Pages 已接上 Firebase Realtime Database**。手機透過 Google 管理帳號操作，電腦投影自動連接 Firebase，同步顯示開獎。Firebase 專案：`red-envelope-lucky-draw-2026`。詳細說明：[GITHUB_PAGES.md](GITHUB_PAGES.md)。以下 Node.js 文件僅是保留的備援版本。
 
 由公開 ChatGPT Sites 網站 **red-envelope-lucky-draw.staney-chou.chatgpt.site** 可見介面與樣式、雲端備份的格式，重建成可在 GitHub 維護的 Node.js 專案。
 
