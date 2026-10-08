@@ -1,5 +1,11 @@
 # 紅包汽球抽起來 🎈
 
+**GitHub Pages 線上網站：** https://staney41011.github.io/red-envelope-lucky-draw/
+
+**控制台：** https://staney41011.github.io/red-envelope-lucky-draw/control/　｜　**投影頁：** https://staney41011.github.io/red-envelope-lucky-draw/projection/
+
+**目前 GitHub Pages 使用本機瀏覽器儲存模式**，同一瀏覽器分頁可同步；不同裝置仍需接雲端資料庫。詳細說明：[GITHUB_PAGES.md](GITHUB_PAGES.md)。以下 Node.js 文件是可選的後端版本。
+
 由公開 ChatGPT Sites 網站 **red-envelope-lucky-draw.staney-chou.chatgpt.site** 可見介面與樣式、雲端備份的格式，重建成可在 GitHub 維護的 Node.js 專案。
 
 > 本庫是**功能重建版**，不是 ChatGPT Sites 原始碼匯出。原站服務端程式無法透過公開網址取得；因此這份專案自行實作了開獎 API、持久化與跨裝置同步。

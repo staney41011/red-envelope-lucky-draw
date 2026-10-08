@@ -1,0 +1,41 @@
+/* GitHub Pages standalone site additions. Original visual styles stay in public/original.css. */
+body { margin:0 }
+.modeNotice { margin:26px 4px 0!important;font-size:14px!important;line-height:1.7!important;color:#d1b6a8!important; }
+.localNotice { display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:8px 0 16px;
+  border:1px solid #a66d22;border-radius:10px;padding:12px 18px;color:#66300f;background:#fff4d5; }
+.localNotice strong { font-size:16px; }
+.localNotice span { font-size:13px; }
+.backupActions .importButton { display:inline-flex;justify-content:center;align-items:center;background:#ffba58;
+  border-radius:8px;border:1px solid #d29743;padding:10px 14px;color:#512c17;font-weight:800;cursor:pointer }
+button.warningButton {padding:9px 13px;background:#591b20;color:#fff7f0;border:1px solid #b7793d;border-radius:8px}
+.compatPeople button:focus-visible,.compatZones button:focus-visible {outline:3px solid #ffe3a4}
+.compatPeople button.selected,.compatZones button.selected { border-color:#9c3224!important;
+  outline:3px solid #ffe1a0;box-shadow:0 0 15px #e79e21a0; }
+.compatZones button {width:100%}
+.compatZones button em {display:block;font-size:13px;font-style:normal;margin-top:5px}
+.compatReady button:disabled {opacity:.5}
+.compatQueue .queueEntry {display:flex;justify-content:space-between;align-items:center;gap:10px;
+  margin:8px 0;padding:10px;border-radius:9px;background:#fff4e4;color:#401818}
+.queueEntry span {display:grid;gap:3px}
+.queueEntry small {font-size:12px}
+.queueEntry button {background:#fff;border:1px solid #b55d47;border-radius:8px;padding:5px 10px;color:#8b2919}
+.empty {font-size:14px;opacity:.7}
+#notice {position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:80;
+  border-radius:12px;font-weight:800;max-width:90vw;text-align:center;}
+#notice:not(:empty) {padding:12px 22px;box-shadow:0 10px 30px #0006}
+#notice.error {background:#ffe0d8;color:#8e2021}
+#notice.success {background:#d4ffda;color:#115d2b}
+.projectionList #queue article {padding:10px 8px;border-bottom:1px solid #ffffff28;display:grid;gap:4px}
+.projectionList #queue article b {font-size:19px}
+.projectionList #queue article small {font-size:13px;color:#ffcf8f}
+.projectionNotes {display:flex;justify-content:center;flex-wrap:wrap;gap:12px}
+.projectionNotes span {display:grid;gap:6px;background:#63151999;border:1px solid #ffd6a666;
+  padding:12px 18px;border-radius:12px;min-width:125px;font-size:14px}
+.projectionNotes strong {font-size:clamp(18px,2vw,31px)}
+.projectionPage.isDrawing .projectionResult>strong {animation:pulseBalloon 0.55s ease-in-out infinite alternate}
+@keyframes pulseBalloon {from{transform:scale(.91) rotate(-6deg)}to{transform:scale(1.08) rotate(6deg)}}
+@media(max-width:850px) {
+  .projectionPage {height:auto;min-height:100vh;overflow:auto}
+  .projectionBody {grid-template-columns:1fr!important}
+  .projectionStage {min-height:50vh}
+}

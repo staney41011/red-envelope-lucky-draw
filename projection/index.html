@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>紅包汽球抽起來｜投影顯示</title>
+<link rel="stylesheet" href="../public/original.css">
+<link rel="stylesheet" href="../public/app.css">
+<link rel="stylesheet" href="../site/static.css"></head>
+<body>
+<main class="projectionPage" id="projectionPage">
+<header><div><span>LIVE DRAW</span><h1>紅包汽球抽起來</h1></div>
+<div><b id="connection">● 載入中</b><small id="updated"></small></div></header>
+<div class="projectionBody">
+  <aside class="projectionList"><h2>本次待抽清單 <b id="queueCount">0</b></h2><div id="queue"></div></aside>
+  <section class="projectionStage"><div class="projectionBurst"></div><div id="stage" class="projectionWaiting"><span>福</span><p>等待控制台開獎</p></div></section>
+  <aside class="projectionInfo">
+    <section><h2>各區剩餘獎項</h2><div class="projectionPrizes" id="prizes"></div></section>
+    <section class="projectionRecords"><h2>抽獎紀錄</h2><div id="records"></div></section>
+  </aside>
+</div>
+<footer><span>紅包汽球抽起來</span><b>LUCKY DRAW</b><span>本瀏覽器投影模式</span></footer>
+</main>
+<script type="module" src="../site/projection.js"></script>
+</body></html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>紅包汽球抽起來｜操作控制台</title>
+<link rel="stylesheet" href="../public/original.css">
+<link rel="stylesheet" href="../public/app.css">
+<link rel="stylesheet" href="../site/static.css"></head>
+<body>
+<main class="compatPage">
+<header class="compatHeader">
+  <div><span>操作控制台</span><h1>紅包汽球抽起來</h1><p>選人、選獎區、加入佇列並開獎。</p></div>
+  <div class="compatStatus"><b id="connection">● 讀取中</b><small id="updated"></small>
+    <a href="../projection/" target="_blank" rel="noopener">開啟投影畫面 ↗</a>
+    <button type="button" id="resetButton" class="warningButton">全部重置</button>
+  </div>
+</header>
+<section class="localNotice">
+  <strong>瀏覽器儲存模式</strong>
+  <span>同一瀏覽器的控制台／投影分頁會同步；不同電腦或手機之間暫不互通。</span>
+</section>
+<section class="backupProtection">
+  <div><strong>活動資料保護</strong><span id="counts">準備讀取…</span>
+    <small id="lastSaved"></small>
+  </div>
+  <div class="backupActions">
+    <button type="button" id="exportButton">匯出完整備份 JSON</button>
+    <label class="importButton" for="importInput">匯入原網站備份 JSON</label>
+    <input type="file" id="importInput" accept=".json,application/json" hidden>
+  </div>
+</section>
+<section class="compatGrid">
+  <section class="compatPanel"><div class="compatTitle"><b>01</b><div>
+    <small>CHOOSE PERSON</small><h2>挑選抽獎人</h2></div></div>
+    <div class="compatPeople" id="people"></div>
+  </section>
+  <section class="compatPanel"><div class="compatTitle"><b>02</b><div>
+    <small>CHOOSE ZONE</small><h2>挑戰獎區</h2></div></div>
+    <div class="compatZones" id="zones"></div>
+    <form class="noteForm" id="enqueueForm">
+      <h3>備註資料</h3>
+      <div class="noteFields">
+        <label>商品<input name="product" type="text" list="productSuggestions" maxlength="60" placeholder="輸入商品名稱" required>
+          <datalist id="productSuggestions"><option value="基金"><option value="海外債"><option value="FCN"><option value="保險"></datalist>
+        </label>
+        <label>手收<input name="handReceipt" type="number" min="0" step="any" inputmode="decimal" placeholder="輸入數字"></label>
+        <label>獎金<input name="bonusAmount" type="number" min="0" step="any" inputmode="decimal" placeholder="輸入數字"></label>
+      </div>
+      <button type="submit" class="compatEnqueue" id="enqueueButton" disabled>＋ 加入抽獎佇列<small>先選姓名與獎區</small></button>
+    </form>
+  </section>
+  <section class="compatStage">
+    <div class="compatTitle"><b>03</b><div><small>LIVE DRAW</small><h2>同步開獎</h2></div></div>
+    <div class="compatReady" id="ready"><span>福</span><p>準備中…</p></div>
+    <div class="compatQueue" id="queue"></div>
+    <div class="compatHistory" id="history"></div>
+  </section>
+</section>
+<div id="notice" aria-live="polite" role="status"></div>
+</main>
+<script type="module" src="../site/control.js"></script>
+</body></html>
