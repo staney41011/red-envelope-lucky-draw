@@ -36,7 +36,9 @@ export async function boot(){
   if(!response.ok)throw Error('名單設定讀取失敗');
   engine=createOpenEngine(await response.json());
   await readLive();
+  void flushHistory();
   setInterval(()=>void readLive(),1200);
+  setInterval(()=>void flushHistory(),10000);
  })();
  return loading;
 }
@@ -70,6 +72,40 @@ async function protectNote(name,zone,details,id){
   method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
  if(!response.ok)throw Error('內部明細儲存失敗（'+response.status+'）；抽獎佇列尚未新增');
 }
+const DRAW_ARCHIVE_QUEUE='red-envelope-private-draw-outbox-v1';
+const outbox=()=>{
+ try{return JSON.parse(localStorage.getItem(DRAW_ARCHIVE_QUEUE)||'[]');}catch{return [];}
+};
+const setOutbox=items=>{
+ try{localStorage.setItem(DRAW_ARCHIVE_QUEUE,JSON.stringify(items.slice(-1000)));}catch(err){console.warn('無法保存抽獎紀錄待上傳清單',err);}
+};
+let uploadingHistory=false;
+async function flushHistory(){
+ if(uploadingHistory)return;
+ uploadingHistory=true;
+ try{
+  const pending=outbox(),remaining=[];
+  for(const r of pending){
+   try{
+    const result=await fetch(ROOT+'/protectedDraws/'+encodeURIComponent(r.id)+'.json',{
+      method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(r)});
+    if(!result.ok){remaining.push(r);console.warn('完整開獎歷史尚待補存',result.status);}
+   }catch(e){remaining.push(r);console.warn('完整開獎歷史網路延遲',e);}
+  }
+  setOutbox(remaining);
+ }finally{uploadingHistory=false;}
+}
+function stagePrivateDraw(result){
+ if(!result?.id)return;
+ const archived={id:result.id,name:result.name,zone:result.zone,
+  zoneLabel:result.zoneLabel,prize:Number(result.prize),
+  createdAt:result.createdAt};
+ const pending=outbox();
+ if(!pending.some(r=>r.id===archived.id)){
+  pending.push(archived);setOutbox(pending);
+ }
+ void flushHistory();
+}
 export async function change(action,payload={}){
  if(!engine||!live)throw Error('尚未連上抽獎雲端，請稍候');
  if(action==='enqueue'){
@@ -77,6 +113,11 @@ export async function change(action,payload={}){
   if(!engine.names.includes(name)||!engine.zones[zone])throw Error('請先選擇姓名與獎區');
   await protectNote(name,zone,payload,id);
   return conditionalUpdate(action,{id,name,zone});
+ }
+ if(action==='draw'){
+  const result=await conditionalUpdate(action,payload);
+  stagePrivateDraw(result.activity?.result);
+  return result;
  }
  return conditionalUpdate(action,payload);
 }
