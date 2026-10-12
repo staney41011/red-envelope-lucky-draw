@@ -5,8 +5,8 @@
   "description": "紅包汽球抽獎－控制台及投影同步 Node.js 版本",
   "scripts": {
     "start": "node server.js",
-    "check": "node --check server.js && node --check public/client.js && node --check public/projection.js",
-    "test": "node tests/smoke.test.js"
+    "check": "node --check server.js && node --check public/client.js && node --check public/projection.js && node --check site/open-core.js && node --check site/open-storage.js && node --check site/open-control.js && node --check site/firebase-projector.js && node --check site/projection-display.js",
+    "test": "node tests/smoke.test.js && node tests/open-core.test.mjs && node tests/projection-data.test.mjs"
   },
   "engines": {
     "node": ">=20"

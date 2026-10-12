@@ -8,18 +8,67 @@
       ".validate": "newData.hasChildren(['names','activity'])"
     },
     "projectionView": {
-      ".read": "auth != null",
-      ".write": "auth != null && auth.token.email === 'a10014521@gmail.com' && auth.token.email_verified === true",
-      ".validate": "newData.hasChildren(['activity','prizeZones','remaining','revision']) && !newData.hasChild('names')",
-      "records": {
-        "$index": {
-          ".validate": "newData.hasChildren(['name','zoneLabel','prize','createdAt']) && !newData.hasChild('product') && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount')"
+      ".read": false,
+      ".write": "auth != null && auth.token.email === 'a10014521@gmail.com' && auth.token.email_verified === true"
+    },
+    "liveState": {
+      ".read": true,
+      ".write": true,
+      ".validate": "newData.hasChildren(['names','remainingStock','activity','revision','updatedAt']) && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount') && !newData.hasChild('product')",
+      "names": {
+        "$i": {".validate": "newData.isString() && newData.val().length <= 24"}
+      },
+      "remainingStock": {
+        "$zone": {
+          "$amount": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000"}
+        }
+      },
+      "activity": {
+        ".validate": "newData.hasChildren(['selectedName','selectedZone','phase','animationUntil','resetCount']) && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount') && !newData.hasChild('product')",
+        "result": {
+          ".validate": "!newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount') && !newData.hasChild('product')"
         }
       },
       "queue": {
-        "$index": {
-          ".validate": "newData.hasChildren(['name','zoneLabel']) && !newData.hasChild('product') && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount')"
+        "$i": {
+          ".validate": "newData.hasChildren(['id','name','zone','zoneLabel','createdAt']) && !newData.hasChild('product') && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount')",
+          "id": {".validate": "newData.isString() && newData.val().length <= 100"},
+          "name": {".validate": "newData.isString() && newData.val().length <= 24"},
+          "zone": {".validate": "newData.isString() && newData.val().length <= 12"},
+          "zoneLabel": {".validate": "newData.isString() && newData.val().length <= 20"},
+          "createdAt": {".validate": "newData.isString() && newData.val().length <= 40"},
+          "$other": {".validate": "false"}
         }
+      },
+      "records": {
+        "$i": {
+          ".validate": "newData.hasChildren(['id','name','zone','zoneLabel','prize','createdAt']) && !newData.hasChild('product') && !newData.hasChild('handReceipt') && !newData.hasChild('bonusAmount')",
+          "id": {".validate": "newData.isString() && newData.val().length <= 100"},
+          "name": {".validate": "newData.isString() && newData.val().length <= 24"},
+          "zone": {".validate": "newData.isString() && newData.val().length <= 12"},
+          "zoneLabel": {".validate": "newData.isString() && newData.val().length <= 20"},
+          "prize": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100000"},
+          "createdAt": {".validate": "newData.isString() && newData.val().length <= 40"},
+          "$other": {".validate": "false"}
+        }
+      },
+      "revision": {".validate": "newData.isString() && newData.val().length <= 100"},
+      "updatedAt": {".validate": "newData.isString() && newData.val().length <= 40"},
+      "$other": {".validate": "false"}
+    },
+    "protectedSubmissions": {
+      ".read": "auth != null && auth.token.email === 'a10014521@gmail.com' && auth.token.email_verified === true",
+      "$id": {
+        ".write": "!data.exists() && newData.exists()",
+        ".validate": "newData.hasChildren(['id','name','zone','product','handReceipt','bonusAmount','createdAt']) && newData.child('id').val() === $id",
+        "id": {".validate": "newData.isString() && newData.val().length <= 100"},
+        "name": {".validate": "newData.isString() && newData.val().length <= 24"},
+        "zone": {".validate": "newData.isString() && newData.val().length <= 12"},
+        "product": {".validate": "newData.isString() && newData.val().length <= 80"},
+        "handReceipt": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000000"},
+        "bonusAmount": {".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 10000000000"},
+        "createdAt": {".validate": "newData.isString() && newData.val().length <= 40"},
+        "$other": {".validate": "false"}
       }
     }
   }
