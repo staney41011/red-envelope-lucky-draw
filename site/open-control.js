@@ -66,9 +66,10 @@ document.addEventListener('click',async e=>{
 });
 el('enqueueForm').addEventListener('submit',async e=>{
   e.preventDefault();
+  const form=e.currentTarget;
   try{
-    await change('enqueue',Object.fromEntries(new FormData(e.currentTarget)));
-    e.currentTarget.reset();update();flash('已加入抽獎佇列');
+    await change('enqueue',Object.fromEntries(new FormData(form)));
+    form.reset();update();flash('已加入抽獎佇列');
   }catch(err){flash(err.message,true);}
 });
 el('resetButton').addEventListener('click',async ()=>{
